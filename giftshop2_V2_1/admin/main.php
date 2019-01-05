@@ -180,6 +180,16 @@ exit;
         <th scope="row"><span class="sizemain"><a href="main.php?module=report&amp;mode=cancel">รายงานยกเลิกการสั่งซื้อ</a></span></th>
       </tr>
       </table>
+    <br>
+    <table width="210" border="0" cellpadding="4" cellspacing="1" bgcolor="#FFFF99">
+      <tr>
+        <th bgcolor="#FFCC66" class="sizebig" scope="row">จัดส่ง</th>
+      </tr>
+      <tr>
+        <th scope="row"><span class="sizemain"><a href="main.php?module=delivery">จัดส่งสินค้า</a></span></th>
+      </tr>
+      </table>
+
     <p>&nbsp;</p></th>
     <td width="78%" colspan="4" align="center" valign="top" bgcolor="#CCCCCC">
      <?
