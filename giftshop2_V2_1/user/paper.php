@@ -1,0 +1,283 @@
+<script language="javascript">
+function fncSubmit()
+{
+if(document.form1.paper_name.value == "")
+{
+alert('กรุณากรอกชื่อกระดาษห่อของขวัญ');
+document.form1.paper_name.focus();
+return false;
+}
+
+
+if(document.form1.fileField.value == "")
+{
+alert('กรุณาใส่รูปภาพกระดาษห่อของขวัญ');
+document.form1.fileField.focus();
+return false;
+}
+
+
+}
+</script>
+
+<?
+$paper_id=$_REQUEST['paper_id'];
+$paper_name=$_REQUEST['paper_name'];
+$keyword=$_REQUEST['keyword'];
+?>
+
+<?
+switch($mode){
+	case insert :
+	
+	if($action=="yes"){
+		
+	
+			
+				
+		
+		if($_FILES['fileField']['name']!=''){
+		$type=strchr($_FILES['fileField']['name'],".");
+		$newnamefiles="".date('ymdhis').$type;
+		//ใข้ move_uploaded_file แทน copy ได้
+		copy($_FILES['fileField']['tmp_name'],"../images/paper/".$newnamefiles."");
+			
+		}
+		
+		
+		$sql="insert into tbl_paper(`paper_pic`,`paper_status`) values('$newnamefiles',1)";	
+	mysql_query($sql,$conn);
+		
+		/*echo "<script language=\"javascript\">alert('เพิ่มข้อมูลเรียบร้อยแล้ว');</script>";*/
+		echo "<meta http-equiv='refresh' content='1;URL=main.php?module=paper&mode=alert&c=1'>";
+		exit;
+		
+	}
+	
+	
+?>
+<style type="text/css">
+.red {
+	color: #F00;
+}
+.sizemain1 {
+	font-size: 12px;
+}
+</style>
+<form action="main.php?module=<?=$module?>" method="post" enctype="multipart/form-data" name="form1" onSubmit="JavaScript:return fncSubmit();">
+  <br>
+  <table width="95%" border="0" align="center" cellpadding="4" cellspacing="1" bgcolor="#FFFF99">
+    <tr>
+      <td colspan="2" align="center" bgcolor="#FFCC66"><span class="sizemain1">เพิ่มลายกระดาษห่อของขวัญ</span></td>
+    </tr>
+   
+     <tr>
+      <td width="96"><span class="sizemain1">รูปภาพ</span></td>
+      <td width="1142" bgcolor="#FFFFFF">       <span class="sizemain1">
+        <input type="file" name="fileField" id="fileField">
+      </span></td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center" bgcolor="#FFCC66"><span class="sizemain1">
+        <input type="submit" name="button" id="button" value="ตกลง">
+      <input type="hidden" name="action" value="yes"/>
+      <input type="hidden" name="mode" value="insert"/>
+      </span></td>
+    </tr>
+  </table>
+</form>
+<?
+break;
+	case update :
+	
+	if($action=="yes"){
+		
+		if($_FILES['fileField']['name']!=''){
+		$type=strchr($_FILES['fileField']['name'],".");
+		$newnamefiles="".date('ymdhis').$type;
+		//ใข้ move_uploaded_file แทน copy ได้
+		copy($_FILES['fileField']['tmp_name'],"../images/paper/".$newnamefiles."");
+		
+		$newpic="paper_pic='$newnamefiles'";
+		}else{
+			$newpic="";
+			
+			}
+	
+	$sql="update tbl_paper set $newpic , paper_status='1' where paper_id='$paper_id' ";
+	mysql_query($sql);
+		
+		
+		echo "<meta http-equiv='refresh' content='1;URL=main.php?module=paper&mode=alert&c=2'>";
+		exit;
+	}
+	
+	$sql="select * from tbl_paper where paper_id='$paper_id'";
+	$qry=mysql_query($sql);
+	$db=mysql_fetch_array($qry);
+?>
+<style type="text/css">
+.red {
+	color: #F00;
+}
+.sizemain1 {
+	font-size: 12px;
+}
+</style>
+<form action="main.php?module=<?=$module?>" method="post" enctype="multipart/form-data" name="form1">
+  <br />
+  
+  <table width="95%" border="0" align="center" cellpadding="4" cellspacing="1" bgcolor="#FFFF99">
+    <tr>
+      <td colspan="2" align="center" bgcolor="#FFCC66"><span class="sizemain1">แก้ไขลายกระดาษห่อของขวัญ</span></td>
+    </tr>
+    <tr>
+      <td width="95"><span class="sizemain1">รูปภาพ</span></td>
+      <td width="1143" bgcolor="#FFFFFF">
+        <span class="sizemain1">
+        <? if($db['paper_pic']!=''){?>
+        <img src="../images/paper/<?=$db['paper_pic']?>" width="150"/><br /> 
+        <? }else{} ?>
+        
+        
+        
+        
+      <input type="file" name="fileField" id="fileField">
+      </span></td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center" bgcolor="#FFCC66"><span class="sizemain1">
+        <input type="submit" name="button" id="button" value="แก้ไข">
+      <input type="hidden" name="action" value="yes"/>
+      <input type="hidden" name="mode" value="update"/>
+      <input type="hidden" name="paper_id" value="<?=$paper_id?>"/>
+      </span></td>
+    </tr>
+  </table>
+</form>
+
+<?
+break;
+	case delete :
+	//ใช้ลบรูปทิ้ง
+	$sqla="select * from tbl_paper where paper_id='$paper_id'";
+	$qrya=mysql_query($sqla);
+	$dba=mysql_fetch_array($qrya);
+/*	unlink('../images/paper/'.$dba['paper_pic'].'');*/
+	
+	//ลบสินค้า
+	$sql="update tbl_paper set paper_status=2 where paper_id='$paper_id'";
+	$qry=mysql_query($sql);
+	
+		echo "<meta http-equiv='refresh' content='1;URL=main.php?module=paper&mode=alert&c=3'>";
+		exit;
+	
+	
+?>
+
+<?
+break;
+default:
+?>
+
+
+<?
+
+
+$sql="select * from tbl_paper where paper_status=1 ";
+//ทำให้ฐานข้อมูลทำงาน
+$qry=mysql_query($sql);
+$numrow=mysql_num_rows($qry);
+?>
+<style type="text/css">
+.red {
+	color: #F00;
+}
+.sizemain1 {
+	font-size: 12px;
+}
+</style>
+<br />
+<table width="95%" border="0" align="center" cellpadding="4" cellspacing="1" bgcolor="#FFFF99">
+  <tr>
+    <td width="3%" align="center" bgcolor="#FFCC66"><span class="sizemain1">ลำดับ</span></td>
+    <td width="16%" align="center" bgcolor="#FFCC66" class="sizemain1">รหัสกระดาษห่อของขวัญ</td>
+    <td width="73%" align="center" bgcolor="#FFCC66"><span class="sizemain1">รูปภาพ</span></td>
+    <td width="4%" align="center" bgcolor="#FFCC66"><span class="sizemain1">แก้ไข</span></td>
+    <td width="4%" align="center" bgcolor="#FFCC66"><span class="sizemain1">ลบ</span></td>
+  </tr>
+  <?
+  if($numrow==0){
+  
+  ?>
+  <tr>
+    <td colspan="5" bgcolor="#FFFFFF"><span class="sizemain1">ไม่มีข้อมูล</span></td>
+  </tr>
+  <? 
+  }else{
+  	$i=1;
+	//คำสั่งให้วนลูป
+	while($db=mysql_fetch_array($qry)){
+  $no++;
+  ?>
+  <tr>
+    <td height="107" align="center" bgcolor="#FFFFFF"><span class="sizemain1">
+      <?=$no?>
+    </span></td>
+    <td align="center" bgcolor="#FFFFFF"><span class="sizemain1">
+      <?=$db['paper_id']?>
+    </span></td>
+    <td align="center" bgcolor="#FFFFFF"><span class="sizemain1">
+      <? if($db['paper_pic']!=''){?>
+      <img src="../images/paper/<?=$db['paper_pic']?>" width="100"/><? }else{} ?>
+    </span></td>
+    <td align="center" bgcolor="#FFFFFF"><span class="sizemain1"><a href="main.php?module=<?=$module?>&mode=update&paper_id=<?=$db['paper_id']?>"><img src="../images/edit.png" width="32" height="32" /></a></span></td>
+    <td align="center" bgcolor="#FFFFFF">
+    
+    
+      <span class="sizemain1"><a href="main.php?module=<?=$module?>&mode=delete&paper_id=<?=$db['paper_id']?>" onClick="javascript:return confirm('คุณต้องการลบกระดาษห่อของขวัญลายที่ <?=$db['paper_id']?> หรือไม่')"><img src="../images/delete.png" width="32" height="32" /></a></span></td>
+  </tr>
+  <?
+  $i++;
+  	}	//while
+  }	   //if
+  ?>
+  
+  
+</table>
+
+<?
+	break;
+	case  alert :
+?>
+<style type="text/css">
+.red {
+	color: #F00;
+}
+.sizemain1 {
+	font-size: 12px;
+}
+</style>
+<br />
+<table width="95%" border="0" align="center" cellpadding="4" cellspacing="1" bgcolor="#FFFF99">
+  <tr>
+    <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="0" cellpadding="3">
+      <tr>
+        <td align="center" bgcolor="#FFCC66"><span class="sizemain1">&nbsp;
+		<? if($c ==1){?>ได้ทำการ <strong>เพิ่ม</strong> กระดาษห่อของขวัญแล้ว
+		<? }else if($c ==2){?>ได้ทำการ <strong>แก้ไข</strong> กระดาษห่อของขวัญแล้ว
+		<? }else{?>ได้ทำการ <strong>ลบ</strong> กระดาษห่อของขวัญแล้ว<? }?>
+        </span></td>
+      </tr>
+      <tr>
+        <td align="right"><meta http-equiv=refresh content=5;URL=main.php?module=paper>
+          <span class="sizemain1"><a href="main.php?module=paper">คลิกที่นี้ถ้าไม่เปลี่ยนหน้าให้อัตโนมัติ</a>&nbsp;</span></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<br />
+
+<?
+	}
+?>
