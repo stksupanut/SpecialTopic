@@ -388,6 +388,13 @@ function sumtotalprice2(){
 	}
 	return $zz;
 }
+// Delivery Function
+/*
+function testShowData() {
+	$orderId = $db['order_id'];
+    echo "<script language=\"javascript\">alert($orderId);</script>"; 
+}
+*/
 ?>
 
 

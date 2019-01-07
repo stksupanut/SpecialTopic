@@ -18,6 +18,10 @@ $sql = "select * from tbl_order";
 
 $qry=mysql_query($sql); // เป็นการอ่านคำสั่งให้ทำงาน
 $numrow=mysql_num_rows($qry); // เป็นการนับจำนวนบรรทัด
+
+function testShowData() {
+  echo "<script language=\"javascript\">alert($orderId);</script>"; 
+}
 ?>
 <form action="main.php?module=<?=$module?>" method="post">
   <table width="439" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -55,7 +59,7 @@ $numrow=mysql_num_rows($qry); // เป็นการนับจำนวน�
         ?>
         <tr>
           <td align="center" bgcolor="#FFFFFF"><span class="sizamain1">
-            <?=$db['order_id']// การดึงค่า order_id ออกมาแสดง?> 
+            <p id="orderId"><?=$db['order_id']// การดึงค่า order_id ออกมาแสดง?></p>
           </span></td>
           <td align="center" bgcolor="#FFFFFF"><span class="sizamain1">
             <?=$db['newname']// การดึงค่า newname ออกมาแสดง?>
@@ -73,9 +77,12 @@ $numrow=mysql_num_rows($qry); // เป็นการนับจำนวน�
             <?=$db['order_date']// การดึงค่า order_date ออกมาแสดง?>
           </span></td>
           <td align="center" bgcolor="#FFFFFF"><span class="sizamain1">
+          <!--
             <a href="main.php?module=<?=$module?>">
             <img src="../images/ic_delivery.png" width="32" height="32" />
             </a>
+          -->
+          <button type="button" onclick="testShowData(orderId)">Click !!</button>
           </span></td>
         </tr>
         <?
@@ -85,7 +92,6 @@ $numrow=mysql_num_rows($qry); // เป็นการนับจำนวน�
         // test git office
         ?>
     </table>
-
 
 
 
