@@ -77,12 +77,12 @@ function testShowData() {
             <?=$db['order_date']// การดึงค่า order_date ออกมาแสดง?>
           </span></td>
           <td align="center" bgcolor="#FFFFFF"><span class="sizamain1">
-          <!--
             <a href="main.php?module=<?=$module?>">
             <img src="../images/ic_delivery.png" width="32" height="32" />
             </a>
-          -->
+            <!--
           <button type="button" onclick="testShowData(orderId)">Click !!</button>
+          -->
           </span></td>
         </tr>
         <?
