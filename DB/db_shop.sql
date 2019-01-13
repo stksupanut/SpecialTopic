@@ -12,50 +12,6 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- 
 -- ฐานข้อมูล: `db_shop`
 -- 
-CREATE DATABASE `db_shop` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `db_shop`;
-
--- --------------------------------------------------------
-
--- 
--- โครงสร้างตาราง `tb_order`
--- 
-
-CREATE TABLE `tb_order` (
-  `order_id` int(10) NOT NULL auto_increment,
-  `name` varchar(100) collate utf8_unicode_ci NOT NULL,
-  `address` varchar(500) collate utf8_unicode_ci NOT NULL,
-  `email` varchar(100) collate utf8_unicode_ci NOT NULL,
-  `phone` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `order_status` int(1) NOT NULL,
-  `order_date` datetime NOT NULL,
-  PRIMARY KEY  (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- 
--- dump ตาราง `tb_order`
--- 
-
-
--- --------------------------------------------------------
-
--- 
--- โครงสร้างตาราง `tb_order_detail`
--- 
-
-CREATE TABLE `tb_order_detail` (
-  `d_id` int(10) NOT NULL auto_increment,
-  `order_id` int(11) NOT NULL,
-  `p_id` int(11) NOT NULL,
-  `p_qty` int(11) NOT NULL,
-  `total` float NOT NULL,
-  PRIMARY KEY  (`d_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- 
--- dump ตาราง `tb_order_detail`
--- 
-
 
 -- --------------------------------------------------------
 
@@ -203,7 +159,7 @@ CREATE TABLE `tbl_customer` (
   `item6` varchar(255) NOT NULL,
   `item7` varchar(255) NOT NULL,
   PRIMARY KEY  (`customer_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='ตารางลูกค้า' AUTO_INCREMENT=46 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='ตารางลูกค้า' AUTO_INCREMENT=47 ;
 
 -- 
 -- dump ตาราง `tbl_customer`
@@ -232,6 +188,7 @@ INSERT INTO `tbl_customer` VALUES (00039, 'wwww', 'www', 'asdas', 0, 0, 0, 0, '0
 INSERT INTO `tbl_customer` VALUES (00038, 'bbb', 'ccc', '', 0, 0, 0, 0, '1239913', 'asda', '', '2018-08-31', 'พระไพรีพินาศกทม.', '', '', '', '', '', '');
 INSERT INTO `tbl_customer` VALUES (00037, 'นายแดง', 'เขียว', 'asjdklasjdlk', 0, 0, 0, 0, '0921231233', 'asd@hotmail.com', '', '2018-08-31', 'หลวงพ่อโสธร(เนื้อเงินมีกริ่ง)', 'พระไพรีพินาศกทม.', '', '', '', '', '');
 INSERT INTO `tbl_customer` VALUES (00045, 'ww', 'ww', 'wwww', 1246, 155, 12, 155, '1123', 'ww', '', '2018-09-17', 'พระลีลาเนื้อชิน(กรุ)', 'พระพนัสบดี(องค์จริงยุคทราวดีพนัสนิคม)ชลบุรี', '', '', '', '', '');
+INSERT INTO `tbl_customer` VALUES (00046, 'Manomai', 'Sudkeaw', 'Wat Nam Dang', 270, 54, 2, 54, '0912345678', 'abcdefg@gmail.com', '', '2019-01-13', 'หลวงพ่อโบสถ์น้อยเนื้อเงิน', 'หลวงพ่อโสธร(เนื้อเงินมีกริ่ง)', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -300,7 +257,7 @@ CREATE TABLE `tbl_order` (
   `delivery_id` varchar(13) collate utf8_unicode_ci NOT NULL default '-',
   `order_tc` int(2) NOT NULL,
   PRIMARY KEY  (`order_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='ตารางสั่งซื้อสินค้า' AUTO_INCREMENT=73 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='ตารางสั่งซื้อสินค้า' AUTO_INCREMENT=74 ;
 
 -- 
 -- dump ตาราง `tbl_order`
@@ -331,6 +288,7 @@ INSERT INTO `tbl_order` VALUES (00065, 00006, '', '', 0, 0, 0, 0, '', '', 00, 00
 INSERT INTO `tbl_order` VALUES (00017, 00006, '', '', 0, 0, 0, 0, '', '', 00, 00, '2018-09-01', 3, '-', 0);
 INSERT INTO `tbl_order` VALUES (00016, 00006, '', '', 0, 0, 0, 0, '', '', 00, 00, '2018-09-01', 3, '-', 0);
 INSERT INTO `tbl_order` VALUES (00072, 00045, 'ww', 'wwww', 1246, 155, 12, 155, '1123', 'ww', 00, 00, '2018-09-17', 3, '-', 0);
+INSERT INTO `tbl_order` VALUES (00073, 00046, 'Manomai', 'Wat Nam Dang', 270, 54, 2, 54, '0912345678', 'abcdefg@gmail.com', 00, 00, '2019-01-13', 0, '-', 0);
 
 -- --------------------------------------------------------
 
@@ -345,7 +303,7 @@ CREATE TABLE `tbl_order_lists` (
   `product_id` int(5) unsigned zerofill NOT NULL,
   `product_price` varchar(5) character set utf8 collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`list_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='ตารางรายการสอนค้าที่สั่งซื้อ' AUTO_INCREMENT=67 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='ตารางรายการสอนค้าที่สั่งซื้อ' AUTO_INCREMENT=69 ;
 
 -- 
 -- dump ตาราง `tbl_order_lists`
@@ -417,6 +375,8 @@ INSERT INTO `tbl_order_lists` VALUES (00063, 00070, '1', 00094, '950');
 INSERT INTO `tbl_order_lists` VALUES (00064, 00071, '1', 00084, '750');
 INSERT INTO `tbl_order_lists` VALUES (00065, 00072, '1', 00090, '500');
 INSERT INTO `tbl_order_lists` VALUES (00066, 00072, '1', 00089, '750');
+INSERT INTO `tbl_order_lists` VALUES (00067, 00073, '1', 00095, '650');
+INSERT INTO `tbl_order_lists` VALUES (00068, 00073, '1', 00094, '950');
 
 -- --------------------------------------------------------
 
@@ -537,6 +497,32 @@ INSERT INTO `tbl_product` VALUES (00092, 'พระปิดตารวยม�
 INSERT INTO `tbl_product` VALUES (00093, 'พระไพรีพินาศกทม.', '180822044317.jpg', '850', 'ด้านหน้าพระไพรีพินาศกทม.', '7', 21, 00, '2018-08-22', '1');
 INSERT INTO `tbl_product` VALUES (00094, 'หลวงพ่อโสธร(เนื้อเงินมีกริ่ง)', '180822044414.jpg', '950', 'ด้านหน้าหลวงพ่อโสธร(เนื้อเงินมีกริ่ง)', '7', 21, 00, '2018-08-22', '1');
 INSERT INTO `tbl_product` VALUES (00095, 'หลวงพ่อโบสถ์น้อยเนื้อเงิน', '180822044510.jpg', '650', 'ด้านหน้าหลวงพ่อโบสถ์น้อยเนื้อเงิน', '10', 21, 00, '2018-08-22', '1');
+
+-- --------------------------------------------------------
+
+-- 
+-- โครงสร้างตาราง `tbl_ribbon`
+-- 
+
+CREATE TABLE `tbl_ribbon` (
+  `ribbon_id` int(2) unsigned zerofill NOT NULL auto_increment,
+  `ribbon_pic` varchar(50) collate utf8_unicode_ci NOT NULL,
+  `ribbon_status` varchar(1) collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`ribbon_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+
+-- 
+-- dump ตาราง `tbl_ribbon`
+-- 
+
+INSERT INTO `tbl_ribbon` VALUES (01, '140223095951.jpe', '1');
+INSERT INTO `tbl_ribbon` VALUES (02, '140223100100.jpe', '1');
+INSERT INTO `tbl_ribbon` VALUES (03, '140223100108.jpe', '1');
+INSERT INTO `tbl_ribbon` VALUES (04, '140223100115.jpe', '1');
+INSERT INTO `tbl_ribbon` VALUES (05, '140223100123.jpe', '1');
+INSERT INTO `tbl_ribbon` VALUES (07, '140120010015.png', '2');
+INSERT INTO `tbl_ribbon` VALUES (08, '140120010148.png', '2');
+INSERT INTO `tbl_ribbon` VALUES (09, '140303023731.jpe', '1');
 
 -- --------------------------------------------------------
 
@@ -11941,32 +11927,6 @@ INSERT INTO `tbl_r_province` VALUES (76, '96', 'นราธิวาส');
 -- --------------------------------------------------------
 
 -- 
--- โครงสร้างตาราง `tbl_ribbon`
--- 
-
-CREATE TABLE `tbl_ribbon` (
-  `ribbon_id` int(2) unsigned zerofill NOT NULL auto_increment,
-  `ribbon_pic` varchar(50) collate utf8_unicode_ci NOT NULL,
-  `ribbon_status` varchar(1) collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`ribbon_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
-
--- 
--- dump ตาราง `tbl_ribbon`
--- 
-
-INSERT INTO `tbl_ribbon` VALUES (01, '140223095951.jpe', '1');
-INSERT INTO `tbl_ribbon` VALUES (02, '140223100100.jpe', '1');
-INSERT INTO `tbl_ribbon` VALUES (03, '140223100108.jpe', '1');
-INSERT INTO `tbl_ribbon` VALUES (04, '140223100115.jpe', '1');
-INSERT INTO `tbl_ribbon` VALUES (05, '140223100123.jpe', '1');
-INSERT INTO `tbl_ribbon` VALUES (07, '140120010015.png', '2');
-INSERT INTO `tbl_ribbon` VALUES (08, '140120010148.png', '2');
-INSERT INTO `tbl_ribbon` VALUES (09, '140303023731.jpe', '1');
-
--- --------------------------------------------------------
-
--- 
 -- โครงสร้างตาราง `tbl_subcategory`
 -- 
 
@@ -11994,3 +11954,45 @@ INSERT INTO `tbl_subcategory` VALUES (09, 03, 'อื่นๆ', '1');
 INSERT INTO `tbl_subcategory` VALUES (18, 18, 'bbbqwerty', '1');
 INSERT INTO `tbl_subcategory` VALUES (17, 18, 'aaaqwety', '1');
 INSERT INTO `tbl_subcategory` VALUES (19, 19, 'qqq', '1');
+
+-- --------------------------------------------------------
+
+-- 
+-- โครงสร้างตาราง `tb_order`
+-- 
+
+CREATE TABLE `tb_order` (
+  `order_id` int(10) NOT NULL auto_increment,
+  `name` varchar(100) collate utf8_unicode_ci NOT NULL,
+  `address` varchar(500) collate utf8_unicode_ci NOT NULL,
+  `email` varchar(100) collate utf8_unicode_ci NOT NULL,
+  `phone` varchar(20) collate utf8_unicode_ci NOT NULL,
+  `order_status` int(1) NOT NULL,
+  `order_date` datetime NOT NULL,
+  PRIMARY KEY  (`order_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- 
+-- dump ตาราง `tb_order`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- โครงสร้างตาราง `tb_order_detail`
+-- 
+
+CREATE TABLE `tb_order_detail` (
+  `d_id` int(10) NOT NULL auto_increment,
+  `order_id` int(11) NOT NULL,
+  `p_id` int(11) NOT NULL,
+  `p_qty` int(11) NOT NULL,
+  `total` float NOT NULL,
+  PRIMARY KEY  (`d_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- 
+-- dump ตาราง `tb_order_detail`
+-- 
+
