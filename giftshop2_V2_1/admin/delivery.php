@@ -12,7 +12,7 @@
 
 <br>
 <?
-$sql = "select * from tbl_order";
+$sql = "select * from tbl_order where order_id=00072";
 // คำสั่ง mysql เป็นการจอยตาราง และแสดงข้อมูล
 //ทำให้ฐานข้อมูลทำงาน
 
@@ -56,10 +56,27 @@ function testShowData() {
         	//คำสั่งให้วนลูป
         	while($db=mysql_fetch_array($qry)){ //คำสั่งวนลูป
             
+            $orderId = $db['order_id'];
+            $newname = $db['newname'];
+            $address_send = $db['address_send'];
+            $telephone_send = $db['telephone_send'];
+            $mail_send = $db['mail_send'];
+            $order_date = $db['order_date'];
+
+            $sql_Insert = "insert into tbl_delivery (order_id,newname,address_send,telephone_send,mail_send,order_date)
+                                              value ('$orderId','$newname','$address_send','$telephone_send','$mail_send','$order_date')";
+                                              
+            $sql_Delete = "delete from tbl_order where order_id=$orderId";
+            $sql_Delete2 = "delete from tbl_order_list where order_id=$orderId";
+
+            $qry1=mysql_query($sql_Insert);
+            $qry2=mysql_query($sql_Delete);
+            $qry2=mysql_query($sql_Delete2);
+            
         ?>
         <tr>
           <td align="center" bgcolor="#FFFFFF"><span class="sizamain1">
-            <p id="orderId"><?=$db['order_id']// การดึงค่า order_id ออกมาแสดง?></p>
+            <p id="orderId"><?=$orderId// การดึงค่า order_id ออกมาแสดง?></p>
           </span></td>
           <td align="center" bgcolor="#FFFFFF"><span class="sizamain1">
             <?=$db['newname']// การดึงค่า newname ออกมาแสดง?>

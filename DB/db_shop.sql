@@ -12,6 +12,50 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- 
 -- ฐานข้อมูล: `db_shop`
 -- 
+CREATE DATABASE `db_shop` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `db_shop`;
+
+-- --------------------------------------------------------
+
+-- 
+-- โครงสร้างตาราง `tb_order`
+-- 
+
+CREATE TABLE `tb_order` (
+  `order_id` int(10) NOT NULL auto_increment,
+  `name` varchar(100) collate utf8_unicode_ci NOT NULL,
+  `address` varchar(500) collate utf8_unicode_ci NOT NULL,
+  `email` varchar(100) collate utf8_unicode_ci NOT NULL,
+  `phone` varchar(20) collate utf8_unicode_ci NOT NULL,
+  `order_status` int(1) NOT NULL,
+  `order_date` datetime NOT NULL,
+  PRIMARY KEY  (`order_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- 
+-- dump ตาราง `tb_order`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- โครงสร้างตาราง `tb_order_detail`
+-- 
+
+CREATE TABLE `tb_order_detail` (
+  `d_id` int(10) NOT NULL auto_increment,
+  `order_id` int(11) NOT NULL,
+  `p_id` int(11) NOT NULL,
+  `p_qty` int(11) NOT NULL,
+  `total` float NOT NULL,
+  PRIMARY KEY  (`d_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- 
+-- dump ตาราง `tb_order_detail`
+-- 
+
 
 -- --------------------------------------------------------
 
@@ -192,6 +236,27 @@ INSERT INTO `tbl_customer` VALUES (00045, 'ww', 'ww', 'wwww', 1246, 155, 12, 155
 -- --------------------------------------------------------
 
 -- 
+-- โครงสร้างตาราง `tbl_delivery`
+-- 
+
+CREATE TABLE `tbl_delivery` (
+  `order_id` int(5) unsigned zerofill NOT NULL,
+  `newname` varchar(50) NOT NULL,
+  `address_send` text NOT NULL,
+  `telephone_send` varchar(10) NOT NULL,
+  `mail_send` varchar(50) NOT NULL,
+  `order_date` date NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
+-- dump ตาราง `tbl_delivery`
+-- 
+
+INSERT INTO `tbl_delivery` VALUES (00072, 'ww', 'wwww', '1123', 'ww', '2018-09-17');
+
+-- --------------------------------------------------------
+
+-- 
 -- โครงสร้างตาราง `tbl_news`
 -- 
 
@@ -265,7 +330,7 @@ INSERT INTO `tbl_order` VALUES (00066, 00006, '', '', 0, 0, 0, 0, '', '', 00, 00
 INSERT INTO `tbl_order` VALUES (00065, 00006, '', '', 0, 0, 0, 0, '', '', 00, 00, '2018-09-01', 3, '-', 0);
 INSERT INTO `tbl_order` VALUES (00017, 00006, '', '', 0, 0, 0, 0, '', '', 00, 00, '2018-09-01', 3, '-', 0);
 INSERT INTO `tbl_order` VALUES (00016, 00006, '', '', 0, 0, 0, 0, '', '', 00, 00, '2018-09-01', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00072, 00045, 'ww', 'wwww', 1246, 155, 12, 155, '1123', 'ww', 00, 00, '2018-09-17', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00072, 00045, 'ww', 'wwww', 1246, 155, 12, 155, '1123', 'ww', 00, 00, '2018-09-17', 3, '-', 0);
 
 -- --------------------------------------------------------
 
@@ -465,39 +530,13 @@ INSERT INTO `tbl_product` VALUES (00085, 'วัดปิดตา( jumbo )ร�
 INSERT INTO `tbl_product` VALUES (00086, 'พระผง(รักทองจากองค์หลวงพ่อวัดบ้านแหลม)', 'บบ.jpg', '800', 'ด้านหน้าพระผง(รักทองจากองค์หลวงพ่อวัดบ้านแหลม)', '5', 21, 00, '2018-08-22', '1');
 INSERT INTO `tbl_product` VALUES (00087, 'พระปิดตาวัดนามะตูมชลบุรี', '180822042816.jpg', '500', 'ด้านหน้าพระปิดตาวัดนามะตูมชลบุรี', '5', 21, 00, '2018-08-22', '1');
 INSERT INTO `tbl_product` VALUES (00088, 'หลวงพ่อผาเงา(ผงอิฐเก่าศักดิ์สิทธิ์)เชียงราย', '180822042954.jpg', '900', 'ด้านหน้าหลวงพ่อผาเงา(ผงอิฐเก่าศักดิ์สิทธิ์)เชียงราย', '5', 21, 00, '2018-08-22', '1');
-INSERT INTO `tbl_product` VALUES (00089, 'พระพนัสบดี(องค์จริงยุคทราวดีพนัสนิคม)ชลบุรี', '180822043100.jpg', '750', 'ด้านหน้าพระพนัสบดี(องค์จริงยุคทราวดีพนัสนิคม)ชลบุรี', '5', 21, 00, '2018-08-22', '1');
-INSERT INTO `tbl_product` VALUES (00090, 'พระลีลาเนื้อชิน(กรุ)', '180822043405.jpg', '500', 'ด้านหน้าพระลีลาเนื้อชิน(กรุ)', '5', 21, 00, '2018-08-22', '1');
+INSERT INTO `tbl_product` VALUES (00089, 'พระพนัสบดี(องค์จริงยุคทราวดีพนัสนิคม)ชลบุรี', '180822043100.jpg', '750', 'ด้านหน้าพระพนัสบดี(องค์จริงยุคทราวดีพนัสนิคม)ชลบุรี', '6', 21, 00, '2018-08-22', '1');
+INSERT INTO `tbl_product` VALUES (00090, 'พระลีลาเนื้อชิน(กรุ)', '180822043405.jpg', '500', 'ด้านหน้าพระลีลาเนื้อชิน(กรุ)', '6', 21, 00, '2018-08-22', '1');
 INSERT INTO `tbl_product` VALUES (00091, 'พระหล่อพิมพ์เล็บมือวัดแหลมหวาย', '180822043517.jpg', '650', 'ด้านหน้าพระหล่อพิมพ์เล็บมือวัดแหลมหวาย', '5', 21, 00, '2018-08-22', '1');
 INSERT INTO `tbl_product` VALUES (00092, 'พระปิดตารวยมหาเสน่ห์(ศักดิ์สิทธิ์ผสมสุดยอดผงหลวงปู่ภูวัดต้นสนชลบุรี)', '180822044205.jpg', '900', 'ด้านหน้าพระปิดตารวยมหาเสน่ห์(ศักดิ์สิทธิ์ผสมสุดยอดผงหลวงปู่ภูวัดต้นสนชลบุรี)', '6', 21, 00, '2018-08-22', '1');
 INSERT INTO `tbl_product` VALUES (00093, 'พระไพรีพินาศกทม.', '180822044317.jpg', '850', 'ด้านหน้าพระไพรีพินาศกทม.', '7', 21, 00, '2018-08-22', '1');
 INSERT INTO `tbl_product` VALUES (00094, 'หลวงพ่อโสธร(เนื้อเงินมีกริ่ง)', '180822044414.jpg', '950', 'ด้านหน้าหลวงพ่อโสธร(เนื้อเงินมีกริ่ง)', '7', 21, 00, '2018-08-22', '1');
 INSERT INTO `tbl_product` VALUES (00095, 'หลวงพ่อโบสถ์น้อยเนื้อเงิน', '180822044510.jpg', '650', 'ด้านหน้าหลวงพ่อโบสถ์น้อยเนื้อเงิน', '10', 21, 00, '2018-08-22', '1');
-
--- --------------------------------------------------------
-
--- 
--- โครงสร้างตาราง `tbl_ribbon`
--- 
-
-CREATE TABLE `tbl_ribbon` (
-  `ribbon_id` int(2) unsigned zerofill NOT NULL auto_increment,
-  `ribbon_pic` varchar(50) collate utf8_unicode_ci NOT NULL,
-  `ribbon_status` varchar(1) collate utf8_unicode_ci NOT NULL,
-  PRIMARY KEY  (`ribbon_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
-
--- 
--- dump ตาราง `tbl_ribbon`
--- 
-
-INSERT INTO `tbl_ribbon` VALUES (01, '140223095951.jpe', '1');
-INSERT INTO `tbl_ribbon` VALUES (02, '140223100100.jpe', '1');
-INSERT INTO `tbl_ribbon` VALUES (03, '140223100108.jpe', '1');
-INSERT INTO `tbl_ribbon` VALUES (04, '140223100115.jpe', '1');
-INSERT INTO `tbl_ribbon` VALUES (05, '140223100123.jpe', '1');
-INSERT INTO `tbl_ribbon` VALUES (07, '140120010015.png', '2');
-INSERT INTO `tbl_ribbon` VALUES (08, '140120010148.png', '2');
-INSERT INTO `tbl_ribbon` VALUES (09, '140303023731.jpe', '1');
 
 -- --------------------------------------------------------
 
@@ -11902,6 +11941,32 @@ INSERT INTO `tbl_r_province` VALUES (76, '96', 'นราธิวาส');
 -- --------------------------------------------------------
 
 -- 
+-- โครงสร้างตาราง `tbl_ribbon`
+-- 
+
+CREATE TABLE `tbl_ribbon` (
+  `ribbon_id` int(2) unsigned zerofill NOT NULL auto_increment,
+  `ribbon_pic` varchar(50) collate utf8_unicode_ci NOT NULL,
+  `ribbon_status` varchar(1) collate utf8_unicode_ci NOT NULL,
+  PRIMARY KEY  (`ribbon_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+
+-- 
+-- dump ตาราง `tbl_ribbon`
+-- 
+
+INSERT INTO `tbl_ribbon` VALUES (01, '140223095951.jpe', '1');
+INSERT INTO `tbl_ribbon` VALUES (02, '140223100100.jpe', '1');
+INSERT INTO `tbl_ribbon` VALUES (03, '140223100108.jpe', '1');
+INSERT INTO `tbl_ribbon` VALUES (04, '140223100115.jpe', '1');
+INSERT INTO `tbl_ribbon` VALUES (05, '140223100123.jpe', '1');
+INSERT INTO `tbl_ribbon` VALUES (07, '140120010015.png', '2');
+INSERT INTO `tbl_ribbon` VALUES (08, '140120010148.png', '2');
+INSERT INTO `tbl_ribbon` VALUES (09, '140303023731.jpe', '1');
+
+-- --------------------------------------------------------
+
+-- 
 -- โครงสร้างตาราง `tbl_subcategory`
 -- 
 
@@ -11929,45 +11994,3 @@ INSERT INTO `tbl_subcategory` VALUES (09, 03, 'อื่นๆ', '1');
 INSERT INTO `tbl_subcategory` VALUES (18, 18, 'bbbqwerty', '1');
 INSERT INTO `tbl_subcategory` VALUES (17, 18, 'aaaqwety', '1');
 INSERT INTO `tbl_subcategory` VALUES (19, 19, 'qqq', '1');
-
--- --------------------------------------------------------
-
--- 
--- โครงสร้างตาราง `tb_order`
--- 
-
-CREATE TABLE `tb_order` (
-  `order_id` int(10) NOT NULL auto_increment,
-  `name` varchar(100) collate utf8_unicode_ci NOT NULL,
-  `address` varchar(500) collate utf8_unicode_ci NOT NULL,
-  `email` varchar(100) collate utf8_unicode_ci NOT NULL,
-  `phone` varchar(20) collate utf8_unicode_ci NOT NULL,
-  `order_status` int(1) NOT NULL,
-  `order_date` datetime NOT NULL,
-  PRIMARY KEY  (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- 
--- dump ตาราง `tb_order`
--- 
-
-
--- --------------------------------------------------------
-
--- 
--- โครงสร้างตาราง `tb_order_detail`
--- 
-
-CREATE TABLE `tb_order_detail` (
-  `d_id` int(10) NOT NULL auto_increment,
-  `order_id` int(11) NOT NULL,
-  `p_id` int(11) NOT NULL,
-  `p_qty` int(11) NOT NULL,
-  `total` float NOT NULL,
-  PRIMARY KEY  (`d_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- 
--- dump ตาราง `tb_order_detail`
--- 
-
