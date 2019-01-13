@@ -12,7 +12,7 @@
 
 <br>
 <?
-$sql = "select * from tbl_order where order_id=00072";
+$sql = "select * from tbl_order";
 // คำสั่ง mysql เป็นการจอยตาราง และแสดงข้อมูล
 //ทำให้ฐานข้อมูลทำงาน
 
