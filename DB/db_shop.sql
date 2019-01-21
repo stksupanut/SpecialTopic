@@ -214,6 +214,46 @@ INSERT INTO `tbl_delivery` VALUES (00072, 'ww', 'wwww', '1123', 'ww', '2018-09-1
 -- --------------------------------------------------------
 
 -- 
+-- โครงสร้างตาราง `tbl_delivery2`
+-- 
+
+CREATE TABLE `tbl_delivery2` (
+  `order_id` int(5) unsigned zerofill NOT NULL,
+  `newname` varchar(50) NOT NULL,
+  `address_send` text NOT NULL,
+  `telephone_send` varchar(10) NOT NULL,
+  `mail_send` varchar(50) NOT NULL,
+  `order_date` date NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
+-- dump ตาราง `tbl_delivery2`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- โครงสร้างตาราง `tbl_delivery3`
+-- 
+
+CREATE TABLE `tbl_delivery3` (
+  `order_id` int(5) unsigned zerofill NOT NULL,
+  `newname` varchar(50) NOT NULL,
+  `address_send` text NOT NULL,
+  `telephone_send` varchar(10) NOT NULL,
+  `mail_send` varchar(50) NOT NULL,
+  `order_date` date NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
+-- dump ตาราง `tbl_delivery3`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
 -- โครงสร้างตาราง `tbl_news`
 -- 
 
