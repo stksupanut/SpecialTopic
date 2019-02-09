@@ -189,7 +189,7 @@ exit;
         <th scope="row"><span class="sizemain"><a href="main.php?module=delivery">ย้ายข้อมูล</a></span></th>
       </tr>
       <tr>
-        <th scope="row"><span class="sizemain"><a href="main.php?module=show_delivery">จัดส่งสินค้า</a></span></th>
+        <th scope="row"><span class="sizemain"><a href="main.php?module=transport">จัดส่งสินค้า</a></span></th>
       </tr>
       </table>
 

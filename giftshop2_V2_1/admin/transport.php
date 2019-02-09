@@ -40,7 +40,8 @@ function checkTableDevl(){
 }
 ?>
 <?
-function Delivery() {
+//function Delivery() {
+    if(isset($_POST['button2'])){
   if($numrow==0){ // เงื่อนไข $numrow เท่ากับ 0 
 ?>
   <tr>
@@ -127,6 +128,7 @@ function Delivery() {
           <td width="11%" align="center" bgcolor="#FFCC66"><span class="sizamain1">วันที่สั่งซื้อ</span></td>
           <td width="11%" align="center" bgcolor="#FFCC66"><span class="sizamain1">จัดส่ง</span></td>
         </tr>
+        <? ?>
     </table>
 
 
