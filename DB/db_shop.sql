@@ -159,7 +159,7 @@ CREATE TABLE `tbl_customer` (
   `item6` varchar(255) NOT NULL,
   `item7` varchar(255) NOT NULL,
   PRIMARY KEY  (`customer_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='ตารางลูกค้า' AUTO_INCREMENT=47 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='ตารางลูกค้า' AUTO_INCREMENT=48 ;
 
 -- 
 -- dump ตาราง `tbl_customer`
@@ -189,6 +189,7 @@ INSERT INTO `tbl_customer` VALUES (00038, 'bbb', 'ccc', '', 0, 0, 0, 0, '1239913
 INSERT INTO `tbl_customer` VALUES (00037, 'นายแดง', 'เขียว', 'asjdklasjdlk', 0, 0, 0, 0, '0921231233', 'asd@hotmail.com', '', '2018-08-31', 'หลวงพ่อโสธร(เนื้อเงินมีกริ่ง)', 'พระไพรีพินาศกทม.', '', '', '', '', '');
 INSERT INTO `tbl_customer` VALUES (00045, 'ww', 'ww', 'wwww', 1246, 155, 12, 155, '1123', 'ww', '', '2018-09-17', 'พระลีลาเนื้อชิน(กรุ)', 'พระพนัสบดี(องค์จริงยุคทราวดีพนัสนิคม)ชลบุรี', '', '', '', '', '');
 INSERT INTO `tbl_customer` VALUES (00046, 'Manomai', 'Sudkeaw', 'Wat Nam Dang', 270, 54, 2, 54, '0912345678', 'abcdefg@gmail.com', '', '2019-01-13', 'หลวงพ่อโบสถ์น้อยเนื้อเงิน', 'หลวงพ่อโสธร(เนื้อเงินมีกริ่ง)', '', '', '', '', '');
+INSERT INTO `tbl_customer` VALUES (00047, 'supanut', 'ketmatcha', '12345', 282, 55, 2, 55, '081231', 'abc@gmail.com', '', '2019-02-10', 'หลวงพ่อโบสถ์น้อยเนื้อเงิน', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -202,14 +203,14 @@ CREATE TABLE `tbl_delivery` (
   `address_send` text NOT NULL,
   `telephone_send` varchar(10) NOT NULL,
   `mail_send` varchar(50) NOT NULL,
-  `order_date` date NOT NULL
+  `order_date` date NOT NULL,
+  `status` varchar(20) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- 
 -- dump ตาราง `tbl_delivery`
 -- 
 
-INSERT INTO `tbl_delivery` VALUES (00072, 'ww', 'wwww', '1123', 'ww', '2018-09-17');
 
 -- --------------------------------------------------------
 
@@ -223,7 +224,9 @@ CREATE TABLE `tbl_delivery2` (
   `address_send` text NOT NULL,
   `telephone_send` varchar(10) NOT NULL,
   `mail_send` varchar(50) NOT NULL,
-  `order_date` date NOT NULL
+  `order_date` date NOT NULL,
+  `status` varchar(20) NOT NULL,
+  PRIMARY KEY  (`order_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- 
@@ -243,11 +246,32 @@ CREATE TABLE `tbl_delivery3` (
   `address_send` text NOT NULL,
   `telephone_send` varchar(10) NOT NULL,
   `mail_send` varchar(50) NOT NULL,
-  `order_date` date NOT NULL
+  `order_date` date NOT NULL,
+  `status` varchar(20) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- 
 -- dump ตาราง `tbl_delivery3`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- โครงสร้างตาราง `tbl_log`
+-- 
+
+CREATE TABLE `tbl_log` (
+  `order_id` int(5) unsigned zerofill NOT NULL,
+  `newname` varchar(50) NOT NULL,
+  `address_send` text NOT NULL,
+  `telephone_send` varchar(10) NOT NULL,
+  `mail_send` varchar(50) NOT NULL,
+  `order_date` date NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
+-- dump ตาราง `tbl_log`
 -- 
 
 
@@ -297,38 +321,69 @@ CREATE TABLE `tbl_order` (
   `delivery_id` varchar(13) collate utf8_unicode_ci NOT NULL default '-',
   `order_tc` int(2) NOT NULL,
   PRIMARY KEY  (`order_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='ตารางสั่งซื้อสินค้า' AUTO_INCREMENT=74 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='ตารางสั่งซื้อสินค้า' AUTO_INCREMENT=77 ;
 
 -- 
 -- dump ตาราง `tbl_order`
 -- 
 
-INSERT INTO `tbl_order` VALUES (00001, 00001, 'จักรกฤช เอี่ยมสอาด', '14106', 377, 68, 4, 68, '0826574298', 'finalff7_1412@windowslive.com', 01, 02, '2014-03-27', 4, '2342341242354', 1);
-INSERT INTO `tbl_order` VALUES (00002, 00001, 'จักรกฤช เอี่ยมสอาด', '14/106', 6431, 724, 50, 724, '0826574298', 'finalfast_1412@live.com', 00, 00, '2014-03-27', 4, '5464645342354', 1);
-INSERT INTO `tbl_order` VALUES (00003, 00001, 'จักรกฤช เอี่ยมสอาด', '14106', 377, 68, 4, 68, '0826574298', 'finalff7_1412@windowslive.com', 01, 03, '2014-03-27', 4, '2342354353452', 2);
-INSERT INTO `tbl_order` VALUES (00004, 00001, 'จักรกฤช เอี่ยมสอาด', '14/106', 6418, 721, 50, 721, '3242341231', 'finalfast_1412@live.com', 01, 01, '2014-03-27', 4, '3453465768768', 2);
-INSERT INTO `tbl_order` VALUES (00005, 00001, 'จักรกฤช เอี่ยมสอาด', '14106', 377, 68, 4, 68, '0826574298', 'finalff7_1412@windowslive.com', 01, 02, '2014-03-27', 4, '4353485649836', 1);
-INSERT INTO `tbl_order` VALUES (00006, 00001, 'จักรกฤช เอี่ยมสอาด', '', 0, 0, 0, 0, '', '', 00, 00, '2014-03-27', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00007, 00001, 'จักรกฤช เอี่ยมสอาด', '14106', 377, 68, 4, 68, '0826574298', 'finalff7_1412@windowslive.com', 00, 00, '2014-03-27', 3, '-', 1);
-INSERT INTO `tbl_order` VALUES (00008, 00001, 'จักรกฤช เอี่ยมสอาด', '14106', 377, 68, 4, 68, '0826574298', 'finalff7_1412@windowslive.com', 00, 00, '2014-04-05', 1, '-', 1);
-INSERT INTO `tbl_order` VALUES (00009, 00001, 'จักรกฤช เอี่ยมสอาด', '14106', 377, 68, 4, 68, '0826574298', 'finalff7_1412@windowslive.com', 00, 00, '2014-04-06', 6, '-', 2);
-INSERT INTO `tbl_order` VALUES (00010, 00001, 'จักรกฤช เอี่ยมสอาด', '14106', 377, 68, 4, 68, '0826574298', 'finalff7_1412@windowslive.com', 00, 00, '2014-04-06', 5, '-', 2);
-INSERT INTO `tbl_order` VALUES (00011, 00006, '', '', 0, 0, 10, 0, '', '', 00, 00, '2018-02-03', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00012, 00007, 'ศรัณยู ดำคชรัตน์', '1124/288 เสนานิคม 1 ซอย 26 แยก 5', 181, 30, 1, 30, '0896564753', 'Sarunyou_Damkotcharat@hotmail.com', 00, 00, '2018-02-04', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00013, 00007, 'ศรัณยู ดำคชรัตน์', '1124/288 เสนานิคม 1 ซอย 26 แยก 5', 183, 30, 1, 30, '0896564753', 'Sarunyou_Damkotcharat@hotmail.com', 00, 00, '2018-02-04', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00014, 00020, 'bank', 'asdasda', 191, 33, 1, 33, '0952111111', 'asd@hotmail.com', 00, 00, '2018-08-22', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00015, 00021, 'ddddd', 'dssdsds', 191, 33, 1, 33, '0695852222', 'aaaaaaa', 00, 00, '2018-08-27', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00071, 00044, 'abc', '', 0, 0, 0, 0, '', '', 00, 00, '2018-09-01', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00070, 00043, 'aa', '', 0, 0, 0, 0, '', '', 00, 00, '2018-09-01', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00069, 00006, '', '', 0, 0, 0, 0, '', '', 00, 00, '2018-09-01', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00068, 00006, '', '', 0, 0, 0, 0, '', '', 00, 00, '2018-09-01', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00067, 00006, '', '', 0, 0, 0, 0, '', '', 00, 00, '2018-09-01', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00066, 00006, '', '', 0, 0, 0, 0, '', '', 00, 00, '2018-09-01', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00065, 00006, '', '', 0, 0, 0, 0, '', '', 00, 00, '2018-09-01', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00017, 00006, '', '', 0, 0, 0, 0, '', '', 00, 00, '2018-09-01', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00016, 00006, '', '', 0, 0, 0, 0, '', '', 00, 00, '2018-09-01', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00072, 00045, 'ww', 'wwww', 1246, 155, 12, 155, '1123', 'ww', 00, 00, '2018-09-17', 3, '-', 0);
-INSERT INTO `tbl_order` VALUES (00073, 00046, 'Manomai', 'Wat Nam Dang', 270, 54, 2, 54, '0912345678', 'abcdefg@gmail.com', 00, 00, '2019-01-13', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00073, 00102, 'พิพัฒน์ เขียว วงสนิท', '18/4', 192, 33, 1, 33, '0876844315', 'greenklongtoey@hotmail.com', 00, 00, '2019-02-12', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00074, 00102, 'พิพัฒน์ เขียว วงสนิท', '18/4', 192, 33, 1, 33, '0876844315', 'greenklongtoey@hotmail.com', 00, 00, '2019-02-12', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00075, 00102, 'พิพัฒน์ เขียว วงสนิท', '18/4', 192, 33, 1, 33, '0876844315', 'greenklongtoey@hotmail.com', 00, 00, '2019-02-12', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00076, 00102, 'พิพัฒน์ เขียว วงสนิท', '18/4', 192, 33, 1, 33, '0689964351', 'greenklongtoey@hotmail.com', 00, 00, '2019-02-12', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00071, 00102, 'พิพัฒน์ เขียว วงสนิท', '18/4', 192, 33, 1, 33, '0876844315', 'greenklongtoey@hotmail.com', 00, 00, '2019-02-12', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00072, 00102, 'พิพัฒน์ เขียว วงสนิท', '18/4', 192, 33, 1, 33, '0876844315', 'greenklongtoey@hotmail.com', 00, 00, '2019-02-12', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00069, 00102, 'พิพัฒน์ เขียว วงสนิท', '18/4', 192, 33, 1, 33, '0876844315', 'greenklongtoey@hotmail.com', 00, 00, '2019-02-12', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00070, 00102, 'พิพัฒน์ เขียว วงสนิท', '18/4', 192, 33, 1, 33, '0689964351', 'greenklongtoey@hotmail.com', 00, 00, '2019-02-12', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00068, 00102, 'พิพัฒน์ เขียว วงสนิท', '18/4', 192, 33, 1, 33, '0876844315', 'greenklongtoey@hotmail.com', 00, 00, '2019-02-11', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00066, 00101, 'พิพัฒน์ เขียว วงสนิท', '18/4', 192, 33, 1, 33, '0876844315', 'greenklongtoey@hotmail.com', 00, 00, '2019-02-11', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00067, 00102, 'พิพัฒน์ เขียว วงสนิท', '18/4', 192, 33, 1, 33, '0876844315', 'greenklongtoey@hotmail.com', 00, 00, '2019-02-11', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00013, 00050, 'เสียงใส', '684/99', 192, 33, 1, 33, '0686653351', 'lnwsas@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00011, 00050, 'เสียงใส', '684/99', 192, 33, 1, 33, '0686653351', 'lnwsas@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00010, 00050, 'เสียงใส', '684/99', 1678, 204, 17, 204, '0686653351', 'lnwsas@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00009, 00050, 'เสียงใส', '684/99', 264, 53, 2, 53, '0686653351', 'lnwsas@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00008, 00049, 'พรรณนี', '652/61', 192, 33, 1, 33, '0681536648', 'panee@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00006, 00048, 'สุพรรณ', '351/66	', 114, 16, 1, 16, '0843619554', 'supan@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00007, 00049, 'พรรณนี', '652/61', 122, 33, 1, 33, '0681536648', 'panee@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00005, 00048, 'สุพรรณ', '351/66', 128, 19, 1, 19, '0843619554', 'supan@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00004, 00048, 'สุพรรณ', '34/15 หมู่บ้าน บางนคร', 1294, 162, 13, 162, '0843619554', 'supan@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00003, 00047, 'พรพรรณ', '166/641', 1009, 126, 10, 126, '0846843316', 'pornpan@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00002, 00047, 'พรพรรณ', '176/652', 1670, 204, 17, 204, '0846843316', 'pornpan@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00001, 00047, 'พรพรรณ', '158/64 หมู่ 6', 231, 47, 1, 47, '0846843316', 'pornpan@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00021, 00051, 'ธนูทวย', '84/661', 192, 33, 2, 33, '0689964351', 'lnwza007@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00022, 00051, 'ธนูทวย', '84/661', 267, 57, 2, 57, '0689964351', 'lnwza007@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00023, 00051, 'ธนูทวย', '84/661', 1413, 178, 15, 178, '0689964351', 'lnwza007@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00024, 00051, 'ธนูทวย', '84/661', 1702, 207, 18, 207, '0689964351', 'lnwza007@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00025, 00053, 'ลานนา', '84/661', 1702, 207, 18, 207, '0683356611', 'kodhod@gmail.com', 00, 00, '2019-02-10', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00026, 00053, 'ลานนา', '66/67', 1702, 207, 18, 207, '0683356611', 'kodhod@gmail.com', 00, 00, '2019-02-10', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00027, 00053, 'ลานนา', '66/67', 1702, 207, 18, 207, '0689964351', 'kodhod@gmail.com', 00, 00, '2019-02-10', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00028, 00053, 'ลานนา', '66/8', 1702, 207, 18, 207, '0683356611', 'kodhod@gmail.com', 00, 00, '2019-02-10', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00029, 00053, 'ลานนา', '668/4', 1702, 207, 18, 207, '0689964351', 'kodhod@gmail.com', 00, 00, '2019-02-10', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00030, 00053, 'ลานนา', '66/8', 1702, 207, 18, 207, '0683356611', 'kodhod@gmail.com', 00, 00, '2019-02-10', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00031, 00053, 'ลานนา', '66/8', 1702, 207, 18, 207, '0689964351', 'kodhod@gmail.com', 00, 00, '2019-02-10', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00050, 00099, 'ชัชชาติ', '16/1', 192, 33, 1, 33, '0816638872', 'kksskk@hodmak.com', 00, 00, '2019-02-10', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00051, 00100, 'ธนาธร', '32/2', 192, 33, 1, 33, '0681116641', 'kitka@outlook.com', 00, 00, '2019-02-10', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00053, 00099, 'ชัชชาติ', '16/1', 192, 33, 1, 33, '0816638872', 'kksskk@hodmak.com', 00, 00, '2019-02-10', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00054, 00100, 'ธนาธร', '32/2', 1702, 207, 18, 207, '0689964351', 'kodhod@gmail.com', 00, 00, '2019-02-10', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00055, 00099, 'ชัชชาติ', '66/8', 192, 33, 1, 33, '0816638872', 'kksskk@hodmak.com', 00, 00, '2019-02-10', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00056, 00100, 'ธนาธร', '32/2', 192, 33, 1, 33, '0681116641', 'kitka@outlook.com', 00, 00, '2019-02-10', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00057, 00101, 'สินธนรักษ์', 'ซอย มังกร เฟื่องฟ้า 5', 192, 33, 1, 33, '0855567351', 'namdangboy@ngo.co.th', 00, 00, '2019-02-11', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00058, 00101, 'สินธนรักษ์', 'ซอย มังกร เฟื่องฟ้า 5', 192, 33, 1, 33, '0855567351', 'namdangboy@ngo.co.th', 00, 00, '2019-02-11', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00059, 00101, 'สินธนรักษ์', 'ซอยมังกร เฟื่องฟ้า 5 ', 192, 33, 1, 33, '0855567351', 'namdangboy@ngo.co.th', 00, 00, '2019-02-11', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00060, 00101, 'สินธนรักษ์', 'ซอยมังกร เฟื่องฟ้า 5', 192, 33, 1, 33, '0855567351', 'namdangboy@ngo.co.th', 00, 00, '2019-02-11', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00061, 00101, 'สินธนรักษ์', 'ซอยมังกร เฟื่องฟ้า 5', 192, 33, 1, 33, '0855567351', 'namdangboy@ngo.co.th', 00, 00, '2019-02-11', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00062, 00101, 'สินธนรักษ์', 'ซอยมังกร เฟื่องฟ้า 5', 192, 33, 1, 33, '0855567351', 'namdangboy@ngo.co.th', 00, 00, '2019-02-11', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00063, 00101, 'สินธนรักษ์', 'ซอยมังกร เฟื่องฟ้า 5', 192, 33, 1, 33, '0855567351', 'namdangboy@ngo.co.th', 00, 00, '2019-02-11', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00064, 00101, 'สินธนรักษ์', 'ซอยมังกร เฟื่องฟ้า 5', 1702, 207, 18, 207, '0855567351', 'namdangboy@ngo.co.th', 00, 00, '2019-02-11', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00065, 00102, 'พิพัฒน์ เขียว วงสนิท', '18/4', 192, 33, 1, 33, '0876844315', 'greenklongtoey@hotmail.com', 00, 00, '2019-02-11', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00012, 00050, 'เสียงใส', '684/99', 192, 33, 1, 33, '0686653351', 'lnwsas@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00015, 00050, 'เสียงใส', '684/99', 192, 33, 1, 33, '0686653351', 'lnwsas@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00014, 00050, 'เสียงใส', '684/99', 192, 33, 1, 33, '0686653351', 'lnwsas@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00016, 00050, 'เสียงใส', '684/99', 192, 33, 1, 33, '0686653351', 'lnwsas@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00018, 00050, 'เสียงใส', '684/99', 192, 33, 1, 33, '0686653351', 'lnwsas@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00017, 00050, 'เสียงใส', '684/99', 192, 33, 1, 33, '0686653351', 'lnwsas@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00019, 00051, 'ธนูทวย', '84/661', 264, 53, 2, 53, '0689964351', 'lnwza007@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
+INSERT INTO `tbl_order` VALUES (00020, 00051, 'ธนูทวย', '84/661', 264, 53, 2, 53, '0689964351', 'lnwza007@gmail.com', 00, 00, '2019-02-09', 0, '-', 0);
 
 -- --------------------------------------------------------
 
@@ -343,80 +398,12 @@ CREATE TABLE `tbl_order_lists` (
   `product_id` int(5) unsigned zerofill NOT NULL,
   `product_price` varchar(5) character set utf8 collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`list_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='ตารางรายการสอนค้าที่สั่งซื้อ' AUTO_INCREMENT=69 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='ตารางรายการสอนค้าที่สั่งซื้อ' AUTO_INCREMENT=70 ;
 
 -- 
 -- dump ตาราง `tbl_order_lists`
 -- 
 
-INSERT INTO `tbl_order_lists` VALUES (00001, 00001, '1', 00014, '150');
-INSERT INTO `tbl_order_lists` VALUES (00002, 00002, '2', 00014, '150');
-INSERT INTO `tbl_order_lists` VALUES (00003, 00003, '3', 00037, '2');
-INSERT INTO `tbl_order_lists` VALUES (00004, 00004, '5', 00012, '100');
-INSERT INTO `tbl_order_lists` VALUES (00005, 00005, '2', 00041, '5');
-INSERT INTO `tbl_order_lists` VALUES (00006, 00006, '1.5', 00046, '100');
-INSERT INTO `tbl_order_lists` VALUES (00007, 00007, '1', 00019, '750');
-INSERT INTO `tbl_order_lists` VALUES (00008, 00008, '1', 00017, '150');
-INSERT INTO `tbl_order_lists` VALUES (00009, 00009, '1', 00016, '300');
-INSERT INTO `tbl_order_lists` VALUES (00010, 00010, '1', 00015, '250');
-INSERT INTO `tbl_order_lists` VALUES (00011, 00011, '1', 00054, '123');
-INSERT INTO `tbl_order_lists` VALUES (00012, 00012, '1', 00054, '123');
-INSERT INTO `tbl_order_lists` VALUES (00013, 00013, '1', 00054, '123');
-INSERT INTO `tbl_order_lists` VALUES (00014, 00014, '1', 00093, '850');
-INSERT INTO `tbl_order_lists` VALUES (00015, 00014, '1', 00092, '900');
-INSERT INTO `tbl_order_lists` VALUES (00016, 00015, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00017, 00015, '1', 00085, '800');
-INSERT INTO `tbl_order_lists` VALUES (00018, 00018, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00019, 00019, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00020, 00020, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00021, 00021, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00022, 00023, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00023, 00024, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00024, 00025, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00025, 00026, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00026, 00027, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00027, 00028, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00028, 00029, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00029, 00030, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00030, 00031, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00031, 00032, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00032, 00034, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00033, 00035, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00034, 00035, '1', 00093, '850');
-INSERT INTO `tbl_order_lists` VALUES (00035, 00036, '1', 00093, '850');
-INSERT INTO `tbl_order_lists` VALUES (00036, 00037, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00037, 00038, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00038, 00039, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00039, 00041, '1', 00093, '850');
-INSERT INTO `tbl_order_lists` VALUES (00040, 00044, '1', 00092, '900');
-INSERT INTO `tbl_order_lists` VALUES (00041, 00046, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00042, 00047, '1', 00093, '850');
-INSERT INTO `tbl_order_lists` VALUES (00043, 00049, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00044, 00050, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00045, 00052, '1', 00091, '650');
-INSERT INTO `tbl_order_lists` VALUES (00046, 00053, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00047, 00054, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00048, 00054, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00049, 00055, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00050, 00056, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00051, 00057, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00052, 00058, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00053, 00059, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00054, 00060, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00055, 00062, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00056, 00064, '1', 00090, '500');
-INSERT INTO `tbl_order_lists` VALUES (00057, 00016, '1', 00093, '850');
-INSERT INTO `tbl_order_lists` VALUES (00058, 00017, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00059, 00066, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00060, 00067, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00061, 00068, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00062, 00069, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00063, 00070, '1', 00094, '950');
-INSERT INTO `tbl_order_lists` VALUES (00064, 00071, '1', 00084, '750');
-INSERT INTO `tbl_order_lists` VALUES (00065, 00072, '1', 00090, '500');
-INSERT INTO `tbl_order_lists` VALUES (00066, 00072, '1', 00089, '750');
-INSERT INTO `tbl_order_lists` VALUES (00067, 00073, '1', 00095, '650');
-INSERT INTO `tbl_order_lists` VALUES (00068, 00073, '1', 00094, '950');
 
 -- --------------------------------------------------------
 
@@ -535,8 +522,8 @@ INSERT INTO `tbl_product` VALUES (00090, 'พระลีลาเนื้อ�
 INSERT INTO `tbl_product` VALUES (00091, 'พระหล่อพิมพ์เล็บมือวัดแหลมหวาย', '180822043517.jpg', '650', 'ด้านหน้าพระหล่อพิมพ์เล็บมือวัดแหลมหวาย', '5', 21, 00, '2018-08-22', '1');
 INSERT INTO `tbl_product` VALUES (00092, 'พระปิดตารวยมหาเสน่ห์(ศักดิ์สิทธิ์ผสมสุดยอดผงหลวงปู่ภูวัดต้นสนชลบุรี)', '180822044205.jpg', '900', 'ด้านหน้าพระปิดตารวยมหาเสน่ห์(ศักดิ์สิทธิ์ผสมสุดยอดผงหลวงปู่ภูวัดต้นสนชลบุรี)', '6', 21, 00, '2018-08-22', '1');
 INSERT INTO `tbl_product` VALUES (00093, 'พระไพรีพินาศกทม.', '180822044317.jpg', '850', 'ด้านหน้าพระไพรีพินาศกทม.', '7', 21, 00, '2018-08-22', '1');
-INSERT INTO `tbl_product` VALUES (00094, 'หลวงพ่อโสธร(เนื้อเงินมีกริ่ง)', '180822044414.jpg', '950', 'ด้านหน้าหลวงพ่อโสธร(เนื้อเงินมีกริ่ง)', '7', 21, 00, '2018-08-22', '1');
-INSERT INTO `tbl_product` VALUES (00095, 'หลวงพ่อโบสถ์น้อยเนื้อเงิน', '180822044510.jpg', '650', 'ด้านหน้าหลวงพ่อโบสถ์น้อยเนื้อเงิน', '10', 21, 00, '2018-08-22', '1');
+INSERT INTO `tbl_product` VALUES (00094, 'หลวงพ่อโสธร(เนื้อเงินมีกริ่ง)', '180822044414.jpg', '950', 'ด้านหน้าหลวงพ่อโสธร(เนื้อเงินมีกริ่ง)', '8', 21, 00, '2018-08-22', '1');
+INSERT INTO `tbl_product` VALUES (00095, 'หลวงพ่อโบสถ์น้อยเนื้อเงิน', '180822044510.jpg', '650', 'ด้านหน้าหลวงพ่อโบสถ์น้อยเนื้อเงิน', '11', 21, 00, '2018-08-22', '1');
 
 -- --------------------------------------------------------
 

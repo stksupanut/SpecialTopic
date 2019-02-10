@@ -12,49 +12,15 @@
 
 <br>
 <?
-
-if(isset($_POST['delivery'])) {
-  $sql_Insert = "insert into tbl_delivery2 (order_id,newname,address_send,telephone_send,mail_send,order_date)
-                                value ('00100','lplpp','ooopp','081232132','ioiuuyyyt','2019-02-10')";
-  mysql_query($sql_Insert);                                    
-}
-
-function checkTableDevl(){
-  $checkTb1 = "select * from tbl_delivery";
-  $checkTb2 = "select * from tbl_delivery2";
-  $checkTb3 = "select * from tbl_delivery3";
-  $qry_checkTb1 = mysql_query($checkTb1);
-  $qry_checkTb2 = mysql_query($checkTb2);
-  $qry_checkTb3 = mysql_query($checkTb3);
-  $no1=mysql_num_rows($qry_checkTb1);
-  $no2=mysql_num_rows($qry_checkTb2);
-  $no3=mysql_num_rows($qry_checkTb3);
-  if ($no1 == 0) {
-    echo "Result : tbl_delivery";
-    return "1";
-  }else if ($no2 == 0) {
-    echo "Result : tbl_delivery2";
-    return "2";
-  }else if ($no3 == 0) {
-    echo "Result : tbl_delivery3";
-    return "3";
-  }else{
-    return "0";
-  }
-}
-
 function moveData($resCheck) {
   $sql = "select * from tbl_order";
-  // คำสั่ง mysql เป็นการจอยตาราง และแสดงข้อมูล
-  //ทำให้ฐานข้อมูลทำงาน
-
   $qry=mysql_query($sql); // เป็นการอ่านคำสั่งให้ทำงาน
   $numrow=mysql_num_rows($qry); // เป็นการนับจำนวนบรรทัด
   if($numrow == 0){
     echo "ไม่มีข้อมูลการขายสินค้า";
     return;
   }
-  while($db=mysql_fetch_array($qry)){ //คำสั่งวนลูป
+  while($db=mysql_fetch_array($qry)){ //คำสั่งวนลูป insert ข้อมูลทีละ 1 row
     $orderId = $db['order_id'];
     $newname = $db['newname'];
     $address_send = $db['address_send'];
@@ -65,73 +31,13 @@ function moveData($resCheck) {
     $sql_Insert = "insert into $resCheck (order_id,newname,address_send,telephone_send,mail_send,order_date)
                                       value ('$orderId','$newname','$address_send','$telephone_send','$mail_send','$order_date')";
                                             
-    // $sql_Delete = "delete from tbl_order where order_id=$orderId";
-    // $sql_Delete2 = "delete from tbl_order_list where order_id=$orderId";
     $qry1=mysql_query($sql_Insert);
-    // $qry2=mysql_query($sql_Delete);
-    // $qry2=mysql_query($sql_Delete2);
   }
 }
 ?>
 
-<?
-  if(isset($_POST['transport'])){
-  //   $sql_transport = "select * from tbl_order where order_date = '".$db['order_date']."'";
-  //   $res=mysql_query($sql_transport);
-
-  //   while($db=mysql_fetch_array($res)){ //คำสั่งวนลูป
-  //     $orderId = $db['order_id'];
-  //     $newname = $db['newname'];
-  //     $address_send = $db['address_send'];
-  //     $telephone_send = $db['telephone_send'];
-  //     $mail_send = $db['mail_send'];
-  //     $order_date = $db['order_date'];
-  
-  //     $sql_Insert = "insert into tbl_delivery3 (order_id,newname,address_send,telephone_send,mail_send,order_date)
-  //                                       value ('$orderId','$newname','$address_send','$telephone_send','$mail_send','$order_date')";
-  //   $res_insert=mysql_query($sql_Insert);                                    
-  // }
-  echo("test");
-  }
-
-  function transportData($order_date) {
-    // $sql_transport = "select * from tbl_order where order_date = '".$order_date."'";
-    echo "<script type='text/javascript'>alert('$order_date');</script>";
-  }
-
-  
-  
-?>
-
-
-
-
 <form action="main.php?module=<?=$module?>" method="post" enctype="multipart/form-data" name="form1" onSubmit="JavaScript:return fncSubmit();">
   <center>
-    <h2>
-    <? 
-      // $resCheck = checkTableDevl();
-    ?>
-    </h2><br>
-    <h2>
-    <?
-    /*
-      if($resCheck == 1){
-        $resCheck = "tbl_delivery1";
-        moveData($resCheck);
-      }else if($resCheck == 2){
-        $resCheck = "tbl_delivery2";
-        moveData($resCheck);
-      }else if($resCheck == 3){
-        $resCheck = "tbl_delivery3";
-        moveData($resCheck);
-      }else if($resCheck == 0){
-        echo "ไม่มีพื้นที่ว่าง";
-      }
-      */
-    ?>
-    </h2>
-
     <table width="439" border="0" align="center" cellpadding="0" cellspacing="0">
       <tr>
         <td width="439" align="center"><span class="sizamain1">ค้นหาตามวันที่:
@@ -157,20 +63,20 @@ function moveData($resCheck) {
     $day = date('d', $dt_keyword); //แสดงวัน มี 0
     $month = date('m', $dt_keyword); // แสดงเดือน มี 0
     $year = date('Y',$dt_keyword); //แสดงปี ค.ศ.
-    $kw = $year."-".$month."-".$day;  // จัด string
+    $kw = $year."-".$month."-".$day;  // จัด string วันที่ เพื่อใช้งานกับ DB
 
     $sql;
 
-    if($kw == '1970-01-01') {
-      ?><script> alert("กรุณาเลือกวันที่"); </script><?
+    if($kw == '1970-01-01') { // 1970-01-01 คือวันที่ default หากไม่มีการเลือกวันที่
+      ?><script> alert("กรุณาเลือกวันที่"); </script><? // แจ้งเตือนให้ทำการเลือกวันที่
       return;
     }else {
-      $sql = "select * from tbl_order where order_date = '".$kw."'";
+      $sql = "select * from tbl_order where order_date = '".$kw."' order by order_id"; // กำหนดคำสั่ง query ตามวันที่ที่จัดเตรียมไว้ และทำการเรียงข้อมูล
     }
     //$sql = "select * from tbl_order";
     $qry=mysql_query($sql);
 
-    while($db=mysql_fetch_array($qry)){ //คำสั่งวนลูป
+    while($db=mysql_fetch_array($qry)){ //คำสั่งวนลูป เพื่อนำข้อมูลมาสร้างตาราง
       $orderId = $db['order_id'];
       $newname = $db['newname'];
       $address_send = $db['address_send'];
@@ -201,10 +107,9 @@ function moveData($resCheck) {
   <?
       } 	//while?>
 <tr>
-  <!-- <td><a href="main.php?module=delivery_from_date"><input type="submit" name="delivery" id="delivery" value="Delivery"></a></td> -->
-  <td><a href="main.php?module=delivery_from_date"><input type="submit" name="btn_delivery" id="btn_delivery" value="ค้นหา" /></td>
-  <!-- <td><input type="button" name="delivery" id="delivery" onclick="testInsert()" value="Delivery"></td> -->
-  <!-- <td><input type="submit" name="delivery" action="delivery" value="Delivery"></td> -->
+      <!-- เมื่อกดปุ่มจะเปิดอีก page โดยส่ง parameter ที่ต้องใช้ไปให้ทาง url -->
+  <td><a href="main.php?module=delivery_from_date&kw=<?=$kw?>"><input type="submit" name="btn_delivery" id="btn_delivery" value="จัดส่ง" />
+      <a href="main.php?module=delete_from_date&kw=<?=$kw?>"><input type="submit" name="btn_delete" id="btn_delete" value="ลบข้อมูล" /></td>
 </tr>
 
   <?
