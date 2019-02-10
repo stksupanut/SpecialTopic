@@ -13,7 +13,11 @@
 <br>
 <?
 
-
+if(isset($_POST['delivery'])) {
+  $sql_Insert = "insert into tbl_delivery2 (order_id,newname,address_send,telephone_send,mail_send,order_date)
+                                value ('00100','lplpp','ooopp','081232132','ioiuuyyyt','2019-02-10')";
+  mysql_query($sql_Insert);                                    
+}
 
 function checkTableDevl(){
   $checkTb1 = "select * from tbl_delivery";
@@ -88,11 +92,17 @@ function moveData($resCheck) {
   //   $res_insert=mysql_query($sql_Insert);                                    
   // }
   echo("test");
-}
-  function transportData($order_date) {
-    $sql_transport = "select * from tbl_order where order_date = '".$order_date."'";
   }
+
+  function transportData($order_date) {
+    // $sql_transport = "select * from tbl_order where order_date = '".$order_date."'";
+    echo "<script type='text/javascript'>alert('$order_date');</script>";
+  }
+
+  
+  
 ?>
+
 
 
 
@@ -126,7 +136,7 @@ function moveData($resCheck) {
       <tr>
         <td width="439" align="center"><span class="sizamain1">ค้นหาตามวันที่:
         </span>
-        <input name="keyword" type="date"/>
+        <input name="keyword" type="date">
         <a href="main.php?module=delivery"><input type="submit" name="btn_searchdate" id="btn_searchdate" value="ค้นหา" /></td>
       </tr>
     </table>
@@ -152,7 +162,8 @@ function moveData($resCheck) {
     $sql;
 
     if($kw == '1970-01-01') {
-      $sql = "select * from tbl_order";
+      ?><script> alert("กรุณาเลือกวันที่"); </script><?
+      return;
     }else {
       $sql = "select * from tbl_order where order_date = '".$kw."'";
     }
@@ -188,17 +199,16 @@ function moveData($resCheck) {
     </span></td>
   </tr>
   <?
-      } 	//while
+      } 	//while?>
+<tr>
+  <!-- <td><a href="main.php?module=delivery_from_date"><input type="submit" name="delivery" id="delivery" value="Delivery"></a></td> -->
+  <td><a href="main.php?module=delivery_from_date"><input type="submit" name="btn_delivery" id="btn_delivery" value="ค้นหา" /></td>
+  <!-- <td><input type="button" name="delivery" id="delivery" onclick="testInsert()" value="Delivery"></td> -->
+  <!-- <td><input type="submit" name="delivery" action="delivery" value="Delivery"></td> -->
+</tr>
+
+  <?
     }
   ?>
-  <tr>
-    <td><input type="submit" name="transport" action="" value="transport"></td>
-  </tr>
-  <tr>
-  <td>
-  
-
-  </td>
-  </tr>
 </table>
 
